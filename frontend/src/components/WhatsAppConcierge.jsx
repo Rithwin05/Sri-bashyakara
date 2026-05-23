@@ -10,7 +10,7 @@ export default function WhatsAppConcierge() {
       <button
         data-testid="whatsapp-concierge-btn"
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-40 group"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-24 z-40 group"
         aria-label="SBJ Concierge"
       >
         <span className="absolute inset-0 rounded-full bg-[#C9973A]/30 animate-ping" />
@@ -22,7 +22,7 @@ export default function WhatsAppConcierge() {
       {open && (
         <div
           data-testid="concierge-card"
-          className="fixed bottom-24 right-6 z-40 w-[320px] bg-[#0B132B]/95 backdrop-blur-xl border border-[#C9973A]/30 p-6 shadow-2xl"
+          className="fixed bottom-24 right-6 md:right-24 z-40 w-[320px] bg-[#0B132B]/95 backdrop-blur-xl border border-[#C9973A]/30 p-6 shadow-2xl"
         >
           <div className="overline mb-3">Speak With An SBJ Advisor</div>
           <p className="font-heading text-2xl text-[#F9F9F7] leading-tight mb-4">
