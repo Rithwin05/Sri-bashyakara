@@ -21,6 +21,7 @@ export default function IntroSequence({ onComplete }) {
       onComplete?.();
     }, 5400);
     return () => [t1, t2, t3, t4].forEach(clearTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onComplete]);
 
   return (
