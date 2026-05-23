@@ -1,0 +1,131 @@
+{
+  "theme": "dark",
+  "archetype": "5 (Luxury)",
+  "brand_name": "The House of SBJ",
+  "domain": "Cinematic Luxury Heritage Jewellery",
+  "design_principles": {
+    "emotion": "Divine, royal, calm, cinematic, meditative, dreamlike.",
+    "aesthetics": "Royal Indian Noir. Dark luxury jewellery palace feeling. Cinematic lighting, slow velvet transitions.",
+    "rules": [
+      "No generic UI elements like standard pop-ups, aggressive e-commerce forms, discounts, or coupons.",
+      "Mobile-first silky scrolling (Lenis) is mandatory. The scroll itself should feel heavy, expensive, and momentum-driven.",
+      "Extensive use of 'Blackspace' (negative space in dark mode) to let jewellery pieces breathe like they are in a physical museum.",
+      "Never center everything; use deliberate asymmetry to create visual tension and an editorial feel.",
+      "Every page is a 'World' or a 'Scene', not a transactional listing.",
+      "Use floating components, subtle parallax, and 3D depth."
+    ]
+  },
+  "colors": {
+    "backgrounds": {
+      "obsidian_black": "#0A0A0A",
+      "midnight_navy": "#0B132B",
+      "dark_velvet": "#111111"
+    },
+    "text": {
+      "primary": "#F9F9F7",
+      "secondary": "#C9973A",
+      "muted": "#A3A3A3"
+    },
+    "accents": {
+      "royal_gold": "#C9973A",
+      "temple_bronze": "#8C5A35",
+      "dusty_emerald": "#2B4A3F"
+    },
+    "atmospheric_pastels": {
+      "blush_pink": "#F6EAE7",
+      "mist_lavender": "#E8E6F0",
+      "sage_green": "#E3ECE6",
+      "pearl_white": "#F9F9F7"
+    },
+    "gradients": {
+      "cinematic_fade": "linear-gradient(to bottom, rgba(10, 10, 10, 0) 0%, rgba(10, 10, 10, 1) 100%)",
+      "gold_glow": "radial-gradient(circle at center, rgba(201, 151, 58, 0.15) 0%, rgba(10, 10, 10, 0) 70%)"
+    }
+  },
+  "typography": {
+    "font_families": {
+      "heading": "'Cormorant Garamond', serif",
+      "subheading": "'Cinzel', serif",
+      "body": "'Tenor Sans', sans-serif"
+    },
+    "scales": {
+      "h1": "text-5xl md:text-6xl lg:text-7xl tracking-tighter leading-none font-light",
+      "h2": "text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight font-light",
+      "h3": "text-2xl md:text-3xl lg:text-4xl tracking-normal font-normal",
+      "overline": "text-xs md:text-sm tracking-[0.3em] uppercase",
+      "body": "text-base md:text-lg leading-relaxed tracking-wide font-light",
+      "caption": "text-xs md:text-sm text-muted uppercase tracking-widest"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Museum-style curation. Items should never feel crowded. Use 2-3x normal spacing.",
+    "padding_scale": "p-8, p-12, p-16, p-24, p-32",
+    "grids": {
+      "bento_marketing": "grid-cols-1 md:grid-cols-12 gap-8 md:gap-16",
+      "gallery_tilt": "CSS Grid with staggered vertical alignment to mimic floating museum cases."
+    },
+    "alignment": "Optical alignment over strict mathematical centers. Left-align text blocks to anchor floating elements."
+  },
+  "components": {
+    "buttons": {
+      "primary": "Solid #C9973A background with #0A0A0A text. Minimal padding (e.g., px-8 py-3). No aggressive border radius (rounded-none or rounded-sm). Hover state: glowing shadow and slight lift.",
+      "secondary": "Transparent background with 1px solid #C9973A border. Text #C9973A. Hover state: bg-#C9973A/10.",
+      "concierge_floating": "Circular gold button fixed at bottom right. Pulse animation. Contains WhatsApp icon."
+    },
+    "forms": {
+      "style": "Editorial, conversational. Inputs should look like fill-in-the-blank lines (border-b only) rather than standard boxes. No heavy backgrounds.",
+      "inputs": "bg-transparent border-b border-[#C9973A]/30 text-[#F9F9F7] focus:border-[#C9973A] focus:outline-none transition-colors",
+      "labels": "Uppercase, 'Cinzel' font, text-xs tracking-[0.2em] text-[#C9973A]"
+    },
+    "cards": {
+      "style": "Glassmorphism with extreme restraint. bg-[#0A0A0A]/40 backdrop-blur-2xl border border-[#F9F9F7]/10. Inner glow and ambient shadow.",
+      "hover": "Subtle 3D tilt effect (framer-motion) to simulate physical inspection of jewelry."
+    }
+  },
+  "motion_and_interactions": {
+    "scroll": "Lenis for buttery smooth momentum scrolling. Crucial for luxury feel.",
+    "3d_elements": "React Three Fiber for the hero section (floating gold ring/dust). Keep WebGL selective to maintain performance.",
+    "transitions": "Slow, cinematic velvet fades. Elements should emerge from darkness (opacity 0 to 1, y-translate 20px) on scroll using Framer Motion.",
+    "cursor": "Custom magnetic cursor. A small gold dot that expands and snaps to interactive elements (buttons, images)."
+  },
+  "media": {
+    "logo": {
+      "url": "https://customer-assets.emergentagent.com/job_89bdb731-09ba-4714-b1da-795d63177d28/artifacts/ibi0q5ov_Sbj_logo.jpeg",
+      "description": "SBJ Official Logo"
+    },
+    "hero": {
+      "url": "https://customer-assets.emergentagent.com/job_89bdb731-09ba-4714-b1da-795d63177d28/artifacts/h2hwamgm_ChatGPT%20Image%20May%2023%2C%202026%2C%2001_32_47%20PM.png",
+      "description": "Hero jewellery set (Peacock/Lakshmi gold + emerald + ruby on black velvet). Used in Temple of Heritage and Main Intro."
+    },
+    "collections": {
+      "emerald_chamber": "https://customer-assets.emergentagent.com/job_89bdb731-09ba-4714-b1da-795d63177d28/artifacts/e43952ag_ChatGPT%20Image%20May%2023%2C%202026%2C%2001_32_42%20PM.png",
+      "modern_aura": "https://customer-assets.emergentagent.com/job_89bdb731-09ba-4714-b1da-795d63177d28/artifacts/eayhc24a_ChatGPT%20Image%20May%2023%2C%202026%2C%2001_32_45%20PM.png",
+      "bridal_constellation": "https://static.prod-images.emergentagent.com/jobs/89bdb731-09ba-4714-b1da-795d63177d28/images/81afbb3d29884536cb81fed651267c3ac88b0ded783a9b1656b8b486e87b42c7.png",
+      "house_of_pearls": "https://static.prod-images.emergentagent.com/jobs/89bdb731-09ba-4714-b1da-795d63177d28/images/51930b813c8eac4657659e9d06af99896f4a4952dd218890c7b086a2cce1bd54.png"
+    },
+    "textures": {
+      "cinematic_dark": "https://static.prod-images.emergentagent.com/jobs/89bdb731-09ba-4714-b1da-795d63177d28/images/e976d415d73ef7ab3944fe61ac8849513d9aba7027b9e3a8429afbd3fec012e8.png"
+    }
+  },
+  "page_structure": {
+    "intro_sequence": "Full-screen black. Logo slowly emerges from darkness. Gold particles drift. Fades to Hero.",
+    "hero": "R3F canvas with interactive rotating gold elements or particles. Bold 'House of SBJ' typography layered on top.",
+    "brand_manifesto": "Editorial text layout. Large Cormorant Garamond quotes. 'Where Tradition Becomes Timeless'.",
+    "temple_universe": "Showcase of the Hero Peacock/Lakshmi set. Floating, parallax effect against the cinematic_dark texture.",
+    "collection_worlds": "A horizontal or staggered vertical scroll section introducing the 5 worlds (Temple, Emerald, Bridal, Pearls, Modern). Each card tilts 3D on hover.",
+    "craftsmanship": "4-step scroll-driven story. Text changes as user scrolls down.",
+    "bridal_journey_questionnaire": "Multi-step elegant form. Only shows one question at a time.",
+    "private_viewing_form": "Final call to action before footer. Clean, minimal reservation form.",
+    "showroom_reveal": "Dark map/address section for Jubilee Hills, Hyderabad.",
+    "floating_elements": "WhatsApp luxury concierge (+91 90308 95440) always visible as a gold floating button."
+  },
+  "instructions_to_main_agent": [
+    "INSTALL DEPENDENCIES: framer-motion, @studio-freight/lenis (or lenis), @react-three/fiber, @react-three/drei, three, lucide-react.",
+    "All components MUST be built in React/Tailwind. Do not use raw Shadcn blocks without heavy customization to match the 'Royal Indian Noir' theme.",
+    "Use <CustomCursor /> component across the app for the magnetic gold cursor.",
+    "Enforce 'data-testid' on ALL interactive elements (buttons, form inputs, navigation links). Example: data-testid='whatsapp-concierge-btn'.",
+    "For the 3D Hero, if actual 3D models of jewelry are missing, use a highly realistic floating particle field (gold dust) + dramatic lighting in R3F, layering the provided 2D PNG assets using Drei's <Image> or <Html> floating components.",
+    "Avoid typical white backgrounds. The lightest background should be a dark midnight navy or obsidian black.",
+    "Never use generic fonts like Inter. Ensure Google Fonts (Cormorant Garamond, Cinzel, Tenor Sans) are imported in index.css or layout."
+  ]
+}
