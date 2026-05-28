@@ -1,14 +1,5 @@
 {
-  "buildCommand": "npm install --legacy-peer-deps --prefix frontend && npm run build --prefix frontend",
-  "outputDirectory": "frontend/build",
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "buildCommand": "cd nextjs-app && npm run build",
+  "outputDirectory": "nextjs-app/.next",
+  "framework": "nextjs"
 }
