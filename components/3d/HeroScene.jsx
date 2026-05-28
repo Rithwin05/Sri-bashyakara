@@ -57,11 +57,11 @@ export default function HeroScene() {
       const cx = w / 2 + (isMobile ? 0 : w * 0.18);
       const cy = h / 2;
 
-      // ambient radial glow
+      // ambient radial gold glow
       const ambient = ctx.createRadialGradient(cx, cy, 30, cx, cy, Math.max(w, h) * 0.7);
-      ambient.addColorStop(0, "rgba(212, 175, 55, 0.08)");
-      ambient.addColorStop(0.5, "rgba(10, 25, 47, 0.02)");
-      ambient.addColorStop(1, "rgba(10, 25, 47, 0)");
+      ambient.addColorStop(0, "rgba(201, 151, 58, 0.18)");
+      ambient.addColorStop(0.5, "rgba(201, 151, 58, 0.04)");
+      ambient.addColorStop(1, "rgba(10, 10, 10, 0)");
       ctx.fillStyle = ambient;
       ctx.fillRect(0, 0, w, h);
 
@@ -72,9 +72,9 @@ export default function HeroScene() {
       const ringR = isMobile ? 130 : 200;
       // ring glow
       const ringGlow = ctx.createRadialGradient(0, 0, ringR - 30, 0, 0, ringR + 50);
-      ringGlow.addColorStop(0, "rgba(212, 175, 55, 0)");
-      ringGlow.addColorStop(0.5, "rgba(212, 175, 55, 0.15)");
-      ringGlow.addColorStop(1, "rgba(212, 175, 55, 0)");
+      ringGlow.addColorStop(0, "rgba(201, 151, 58, 0)");
+      ringGlow.addColorStop(0.5, "rgba(201, 151, 58, 0.25)");
+      ringGlow.addColorStop(1, "rgba(201, 151, 58, 0)");
       ctx.fillStyle = ringGlow;
       ctx.beginPath();
       ctx.arc(0, 0, ringR + 50, 0, Math.PI * 2);
@@ -82,10 +82,10 @@ export default function HeroScene() {
 
       // gold ring (torus look — gradient stroke)
       const grad = ctx.createLinearGradient(-ringR, -ringR, ringR, ringR);
-      grad.addColorStop(0, "#D4AF37");
-      grad.addColorStop(0.45, "#F3E5AB");
-      grad.addColorStop(0.55, "#D4AF37");
-      grad.addColorStop(1, "#8C6B25");
+      grad.addColorStop(0, "#8C6B25");
+      grad.addColorStop(0.45, "#F1D27A");
+      grad.addColorStop(0.55, "#C9973A");
+      grad.addColorStop(1, "#6B4A1C");
       ctx.lineWidth = isMobile ? 8 : 14;
       ctx.strokeStyle = grad;
       ctx.beginPath();
@@ -116,9 +116,9 @@ export default function HeroScene() {
         // halo
         const haloR = d.size * 4;
         const halo = ctx.createRadialGradient(px, py, 0, px, py, haloR);
-        halo.addColorStop(0, `rgba(255, 255, 255, ${0.5 * tw})`);
-        halo.addColorStop(0.4, `rgba(212, 175, 55, ${0.1 * tw})`);
-        halo.addColorStop(1, "rgba(255, 255, 255, 0)");
+        halo.addColorStop(0, `rgba(255, 240, 200, ${0.5 * tw})`);
+        halo.addColorStop(0.4, `rgba(201, 151, 58, ${0.18 * tw})`);
+        halo.addColorStop(1, "rgba(255, 240, 200, 0)");
         ctx.fillStyle = halo;
         ctx.beginPath();
         ctx.arc(px, py, haloR, 0, Math.PI * 2);
@@ -157,8 +157,8 @@ export default function HeroScene() {
         if (p.x > w + 10) p.x = -10;
         ctx.beginPath();
         ctx.fillStyle = p.hue === "diamond"
-          ? `rgba(255, 255, 255, ${p.a})`
-          : `rgba(212, 175, 55, ${p.a})`;
+          ? `rgba(255, 250, 235, ${p.a})`
+          : `rgba(201, 151, 58, ${p.a})`;
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
       });
