@@ -16,9 +16,9 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#050810" />
+        <meta name="theme-color" content="#FFF8F0" />
       </head>
-      <body className="bg-ivory text-royalNavy">
+      <body className="text-royalNavy" style={{ background: "#FFF8F0" }}>
         <Nav />
         <main>{children}</main>
         <Footer />
