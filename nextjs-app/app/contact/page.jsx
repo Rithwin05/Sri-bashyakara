@@ -1,58 +1,128 @@
 "use client";
 
-import Reveal from "@/components/Reveal";
-import { SBJ_ADDRESS, SBJ_PHONE_DISPLAY } from "@/lib/api";
+import { useScrollReveal } from "@/lib/useScrollReveal";
+import dynamic from "next/dynamic";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
+
+const RoyalParticles = dynamic(() => import("@/components/RoyalParticles"), { ssr: false });
 
 export default function ContactPage() {
+  useScrollReveal();
   return (
-    <main className="min-h-screen bg-pastelAccent pt-32 pb-24">
-      <div className="max-w-[1200px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16">
-        
-        {/* Contact Info */}
-        <Reveal>
-          <div className="font-body text-xs tracking-widest text-mutedGold uppercase mb-6">Concierge</div>
-          <h1 className="font-heading text-5xl text-deepBlue mb-10">Private Appointments</h1>
-          <p className="font-body text-deepBlue/70 font-light leading-relaxed mb-12 max-w-md">
-            To view our collections or discuss a bespoke commission, we invite you to arrange a private appointment at our flagship boutique.
+    <main style={{ background: "#050810" }} className="min-h-screen pt-28 pb-32">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-16">
+        {/* Header */}
+        <div className="relative py-24 text-center mb-16 overflow-hidden">
+          <RoyalParticles count={60} />
+          <div className="reveal overline-royal mb-4">Speak With Us</div>
+          <h1 className="reveal delay-100 heading-xl mb-6">
+            Begin a <em className="gold-text not-italic">Private Conversation</em>
+          </h1>
+          <p className="reveal delay-200 sub-heading max-w-lg mx-auto">
+            No catalogue. No pressure. Just a warm conversation about what you love
+            and what your family already wears.
           </p>
+        </div>
 
-          <div className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          {/* Info column */}
+          <div className="lg:col-span-4 space-y-10 reveal-left">
             <div>
-              <h3 className="font-heading text-2xl text-deepBlue mb-2">Boutique</h3>
-              <p className="font-body text-deepBlue/70 font-light leading-relaxed">{SBJ_ADDRESS}</p>
+              <div className="overline-royal mb-6">Our Atelier</div>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <MapPin size={18} className="text-[#C9A84C] mt-0.5 shrink-0" />
+                  <p className="font-body text-sm text-[#FAF6EE]/65 leading-relaxed">
+                    Sri Bhashyakara Jewellery<br />
+                    Jubilee Hills, Hyderabad<br />
+                    Telangana – 500033
+                  </p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Phone size={18} className="text-[#C9A84C] shrink-0" />
+                  <p className="font-body text-sm text-[#FAF6EE]/65">+91 40 2354 7890</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Mail size={18} className="text-[#C9A84C] shrink-0" />
+                  <p className="font-body text-sm text-[#FAF6EE]/65">concierge@sribhashyakara.com</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Clock size={18} className="text-[#C9A84C] shrink-0" />
+                  <p className="font-body text-sm text-[#FAF6EE]/65">Mon–Sat: 10am – 7pm IST<br />Sunday by appointment only</p>
+                </div>
+              </div>
             </div>
+
+            <div className="divider-gold" />
+
             <div>
-              <h3 className="font-heading text-2xl text-deepBlue mb-2">Connect</h3>
-              <p className="font-body text-deepBlue/70 font-light leading-relaxed">
-                T: {SBJ_PHONE_DISPLAY}<br />
-                E: concierge@sribhashyakara.com
+              <div className="overline-royal mb-4">Private Appointments</div>
+              <p className="font-body text-sm text-[#FAF6EE]/50 leading-relaxed">
+                For a truly exclusive experience, we close the showroom and dedicate our
+                full attention to your family. Submit the form and our concierge will call
+                within 24 hours.
               </p>
             </div>
-          </div>
-        </Reveal>
 
-        {/* Form */}
-        <Reveal delay={200}>
-          <div className="bg-crispWhite p-10 md:p-14 shadow-2xl rounded-sm">
-            <h3 className="font-heading text-3xl text-deepBlue mb-8">Request an Appointment</h3>
-            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-              <div>
-                <label className="font-body text-xs tracking-widest uppercase text-deepBlue block mb-3">Name</label>
-                <input type="text" className="editorial-input" placeholder="Your full name" />
-              </div>
-              <div>
-                <label className="font-body text-xs tracking-widest uppercase text-deepBlue block mb-3">Email</label>
-                <input type="email" className="editorial-input" placeholder="Your email address" />
-              </div>
-              <div>
-                <label className="font-body text-xs tracking-widest uppercase text-deepBlue block mb-3">Interest</label>
-                <input type="text" className="editorial-input" placeholder="E.g., Bridal, Bespoke, The Aura Collection" />
-              </div>
-              <button className="btn-gold w-full mt-4">Submit Request</button>
-            </form>
+            {/* Jewellery accent image */}
+            <div className="border border-[#C9A84C]/15 overflow-hidden">
+              <img
+                src="/images/ChatGPT Image May 23, 2026, 01_32_23 PM.png"
+                alt="SBJ jewellery"
+                className="w-full aspect-square object-cover opacity-80"
+              />
+            </div>
           </div>
-        </Reveal>
 
+          {/* Form */}
+          <div className="lg:col-span-8 reveal-right">
+            <div
+              className="border border-[#C9A84C]/20 p-10 md:p-14"
+              style={{ background: "rgba(201,168,76,0.02)" }}
+            >
+              <h2 className="font-royal text-3xl text-[#FAF6EE] mb-10">Request an Appointment</h2>
+              <form onSubmit={e => e.preventDefault()} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <label className="overline-royal text-[0.6rem] block mb-3">Full Name</label>
+                    <input type="text" className="royal-input" placeholder="Your full name" />
+                  </div>
+                  <div>
+                    <label className="overline-royal text-[0.6rem] block mb-3">Phone Number</label>
+                    <input type="tel" className="royal-input" placeholder="+91 99999 00000" />
+                  </div>
+                </div>
+                <div>
+                  <label className="overline-royal text-[0.6rem] block mb-3">Email Address</label>
+                  <input type="email" className="royal-input" placeholder="your@email.com" />
+                </div>
+                <div>
+                  <label className="overline-royal text-[0.6rem] block mb-3">Occasion</label>
+                  <select className="royal-input appearance-none cursor-pointer" defaultValue="">
+                    <option value="" disabled>Select occasion...</option>
+                    <option>Bridal Trousseau</option>
+                    <option>Anniversary Gift</option>
+                    <option>Bespoke Commission</option>
+                    <option>Festival Jewellery</option>
+                    <option>Collection Exploration</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="overline-royal text-[0.6rem] block mb-3">Tell Us Your Story</label>
+                  <textarea
+                    rows={5}
+                    className="royal-input resize-none"
+                    placeholder="Tell us about the occasion, your preferences, or any piece you saw that caught your eye..."
+                  />
+                </div>
+                <button type="submit" className="btn-royal-solid w-full justify-center">
+                  Submit Request · Our Concierge Will Call You
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );

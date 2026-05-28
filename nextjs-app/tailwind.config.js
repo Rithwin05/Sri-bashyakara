@@ -18,10 +18,27 @@ module.exports = {
   			serif: ['var(--font-playfair)', 'serif'],
   		},
   		colors: {
+  			// Legacy tokens
   			deepBlue: '#0A192F',
   			mutedGold: '#D4AF37',
   			crispWhite: '#FFFFFF',
   			pastelAccent: '#F3F4F6',
+  			// Royal Indian palette (Light Theme focus)
+  			royalNavy: '#0D1B2A',
+  			navyBlue: '#001C38',
+  			royalMidnight: '#0A0F1E',
+  			royalDeep: '#050810',
+  			royalGold: '#C9A84C',
+  			royalGoldLight: '#F0C96B',
+  			royalGoldPale: '#FDE9A2',
+  			royalEmerald: '#0A4A3A',
+  			royalCrimson: '#7B1C1C',
+  			royalPurple: '#1A0D3B',
+  			archBrown: '#2A1E14',
+  			ivory: '#FAF6EE',
+  			ivoryWarm: '#F5EDD8',
+  			blushPink: '#FAEBE4',
+  			blushLight: '#FDF1EB',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

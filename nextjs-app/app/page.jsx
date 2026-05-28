@@ -1,254 +1,328 @@
-import { Suspense } from "react";
-import dynamic from "next/dynamic";
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ChevronRight, ArrowRight } from "lucide-react";
-import Reveal from "@/components/Reveal";
-import GoldDust from "@/components/GoldDust";
-import { COLLECTIONS } from "@/lib/data/collections";
+import { ChevronRight, ArrowDown } from "lucide-react";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
-const HeroScene = dynamic(() => import("@/components/3d/HeroScene"), {
-  ssr: false,
-  loading: () => <div className="w-full h-full bg-deepBlue" />
-});
+/* ==========================================
+   IMAGE MAP  (URL-encoded filenames)
+========================================== */
+const IMG = {
+  peacock:  "/images/ChatGPT Image May 23, 2026, 01_31_38 PM.png",
+  emerald:  "/images/ChatGPT Image May 23, 2026, 01_32_10 PM.png",
+  earrings: "/images/ChatGPT Image May 23, 2026, 01_32_12 PM.png",
+  ruby:     "/images/ChatGPT Image May 23, 2026, 01_32_13 PM.png",
+  ring:     "/images/ChatGPT Image May 23, 2026, 01_32_15 PM.png",
+  necklace: "/images/ChatGPT Image May 23, 2026, 01_32_16 PM.png",
+  bangle:   "/images/ChatGPT Image May 23, 2026, 01_32_17 PM.png",
+  lotus:    "/images/ChatGPT Image May 23, 2026, 01_32_19 PM.png",
+  choker:   "/images/ChatGPT Image May 23, 2026, 01_32_20 PM.png",
+  gold1:    "/images/ChatGPT Image May 23, 2026, 01_32_21 PM.png",
+  lotus2:   "/images/ChatGPT Image May 23, 2026, 01_32_22 PM.png",
+  pendant:  "/images/ChatGPT Image May 23, 2026, 01_32_23 PM.png",
+  bridal:   "/images/ChatGPT Image May 23, 2026, 01_32_25 PM.png",
+  maang:    "/images/ChatGPT Image May 23, 2026, 01_32_26 PM.png",
+  blue:     "/images/ChatGPT Image May 23, 2026, 01_32_35 PM.png",
+  set:      "/images/ChatGPT Image May 23, 2026, 01_32_37 PM.png",
+  ruby2:    "/images/ChatGPT Image May 23, 2026, 01_32_40 PM.png",
+  green2:   "/images/ChatGPT Image May 23, 2026, 01_32_42 PM.png",
+  green3:   "/images/ChatGPT Image May 23, 2026, 01_32_45 PM.png",
+  hero:     "/images/ChatGPT Image May 23, 2026, 01_32_47 PM.png",
+  bridal2:  "/images/ChatGPT Image May 23, 2026, 01_32_27 PM.png"
+};
 
-// Using TempleScene as a pedestal showcase instead of literal temple
-const PedestalScene = dynamic(() => import("@/components/3d/TempleScene"), {
-  ssr: false
-});
+/* ==========================================
+   FLOATING JEWEL ELEMENT (Parallax)
+========================================== */
+function FloatingJewel({ src, alt, className = "", style = {}, floatClass = "float-1" }) {
+  return (
+    <div className={`absolute pointer-events-none select-none ${className} ${floatClass}`} style={style}>
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover drop-shadow-2xl"
+        loading="lazy"
+      />
+    </div>
+  );
+}
 
-const HERO_IMG = "https://customer-assets.emergentagent.com/job_89bdb731-09ba-4714-b1da-795d63177d28/artifacts/h2hwamgm_ChatGPT%20Image%20May%2023%2C%202026%2C%2001_32_47%20PM.png";
-const MINIMAL_IMG = "https://customer-assets.emergentagent.com/job_89bdb731-09ba-4714-b1da-795d63177d28/artifacts/eayhc24a_ChatGPT%20Image%20May%2023%2C%202026%2C%2001_32_45%20PM.png";
-const MODERN_IMG = "https://customer-assets.emergentagent.com/job_89bdb731-09ba-4714-b1da-795d63177d28/artifacts/e43952ag_ChatGPT%20Image%20May%2023%2C%202026%2C%2001_32_42%20PM.png";
-
-const ATELIER_FEATURES = [
-  { num: "01", title: "Uncompromising Sourcing", body: "We source only the rarest gems, prioritizing ethical origins and spectacular clarity." },
-  { num: "02", title: "Avant-Garde Design", body: "Blending classic elegance with bold, modern silhouettes for the contemporary wearer." },
-  { num: "03", title: "Master Craftsmanship", body: "Every piece is sculpted by master artisans who have perfected their discipline over decades." },
-];
-
-export default function Home() {
-  const collections = COLLECTIONS.map(c => ({
-    ...c,
-    cover: c.pieces[0].image
-  }));
+export default function HomePage() {
+  useScrollReveal();
 
   return (
-    <main data-testid="home-page" className="relative bg-crispWhite">
-      
-      {/* ============ HERO ============ */}
-      <section className="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden bg-deepBlue">
-        <GoldDust count={30} />
-        <div className="absolute inset-0 z-0">
-          <HeroScene />
-        </div>
-        <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-r from-deepBlue via-deepBlue/80 to-transparent" />
+    <div className="bg-ivory min-h-screen text-royalNavy">
+      {/* Noise grain overlay for texture */}
+      <div className="noise-overlay opacity-[0.02]" />
 
-        <div className="relative z-10 max-w-[1500px] w-full mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-8">
-            <Reveal delay={0}>
-              <p className="font-body text-xs tracking-[0.25em] text-mutedGold uppercase mb-6 font-medium">
-                The House of Sri Bhashyakara
-              </p>
-            </Reveal>
-            <Reveal delay={150}>
-              <h1 className="font-heading text-5xl md:text-7xl lg:text-[7rem] text-white leading-[1.05] tracking-[-0.01em]">
-                Elevating <br/>
-                <em className="italic text-mutedGold font-light">modern luxury.</em>
-              </h1>
-            </Reveal>
-            <Reveal delay={400}>
-              <p className="font-body text-white/80 text-base md:text-lg mt-8 max-w-xl leading-relaxed font-light">
-                Discover a world of meticulously crafted jewellery. We blend heritage with contemporary design to create pieces that transcend time.
-              </p>
-            </Reveal>
-            <Reveal delay={650}>
-              <div className="flex flex-wrap gap-5 mt-12">
-                <Link href="/shop" className="btn-gold flex items-center gap-2">
-                  Explore Collections <ArrowRight size={16} />
-                </Link>
-                <Link href="/about" className="btn-ghost-gold">
-                  Our Philosophy
-                </Link>
-              </div>
-            </Reveal>
+      {/* ====================================================
+          1. HERO SECTION (Navy Blue)
+      ==================================================== */}
+      <section className="relative w-full h-[90vh] bg-navyBlue flex items-center justify-center overflow-hidden pt-20">
+        
+        {/* Subtle radial glow in the background */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-royalNavy/50 via-navyBlue to-navyBlue" />
+
+        {/* Decorative Gold Frame */}
+        <div className="absolute inset-6 border border-royalGold/20 pointer-events-none rounded-xl" />
+        <div className="absolute inset-8 border border-royalGold/10 pointer-events-none rounded-xl" />
+
+        {/* Floating Jewellery Parallax */}
+        <FloatingJewel
+          src={IMG.gold1}
+          alt="Gold Necklace"
+          className="w-72 h-72 lg:w-96 lg:h-96 top-[15%] right-[-5%] lg:right-[10%] opacity-90 rounded-full"
+          floatClass="float-2"
+        />
+        <FloatingJewel
+          src={IMG.bangle}
+          alt="Gold Bangle"
+          className="w-48 h-48 lg:w-64 lg:h-64 bottom-[15%] left-[5%] lg:left-[15%] opacity-80 rounded-full"
+          floatClass="float-1"
+        />
+
+        <div className="relative z-10 text-center px-6 max-w-3xl">
+          <div className="reveal overline-royal text-royalGold/80 mb-6 flex items-center justify-center gap-3">
+            <span className="w-8 h-px bg-royalGold/50" />
+            Everyday Elegance
+            <span className="w-8 h-px bg-royalGold/50" />
+          </div>
+          
+          <h1 className="reveal delay-100 font-royal text-4xl lg:text-6xl text-ivory mb-8 leading-tight">
+            Daily wear styles <br/>
+            <em className="text-royalGold not-italic">your heart will love.</em>
+          </h1>
+
+          <div className="reveal delay-200 inline-block border border-royalGold/30 p-1 rounded-sm backdrop-blur-sm bg-navyBlue/50 mb-10">
+            <div className="border border-royalGold/20 px-8 py-3 text-ivory font-body text-sm uppercase tracking-widest flex items-center gap-2">
+              <span className="text-royalGold">✦</span>
+              Explore The Collection
+              <span className="text-royalGold">✦</span>
+            </div>
+          </div>
+
+          {/* Scroll Down Indicator */}
+          <div className="reveal delay-400 absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <span className="overline-royal text-[10px] text-ivory/50">Scroll to Discover</span>
+            <ArrowDown size={16} className="text-royalGold animate-bounce opacity-80" />
           </div>
         </div>
       </section>
 
-      {/* ============ MARQUEE ============ */}
-      <div className="marquee py-5 border-y border-mutedGold/20 bg-pastelAccent">
-        <div className="marquee-track">
-          {Array.from({ length: 2 }).map((_, k) => (
-            <div key={k} className="flex items-center gap-12 px-6">
-              {["Timeless Elegance", "Modern Luxury", "Unparalleled Craftsmanship", "Sri Bhashyakara", "Curated Collections", "Bespoke Design"].map((t, i) => (
-                <span key={i} className="flex items-center gap-12">
-                  <span className="font-body text-xs tracking-[0.3em] uppercase text-deepBlue font-medium">{t}</span>
-                  <span className="text-mutedGold/60 text-xs">✦</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
 
-      {/* ============ MANIFESTO ============ */}
-      <section className="relative py-32 md:py-48 px-6 lg:px-12 bg-crispWhite">
-        <div className="max-w-[1300px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 relative">
-          <Reveal className="md:col-span-4 md:sticky md:top-32 self-start">
-            <div className="font-body text-xs tracking-widest text-mutedGold uppercase mb-4 font-medium">Philosophy</div>
-            <div className="w-16 h-[1px] bg-mutedGold mb-10" />
-            <p className="font-body text-sm tracking-[0.2em] text-deepBlue/50 leading-loose uppercase">
-              Vision<br />
-              Precision<br />
-              Excellence<br />
-              Innovation
-            </p>
-          </Reveal>
-          <Reveal delay={150} className="md:col-span-8">
-            <h2 className="font-heading text-4xl md:text-6xl text-deepBlue leading-[1.2] mb-10">
-              We design for the <em className="italic text-mutedGold font-light">modern connoisseur</em>.
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 font-body text-deepBlue/70 text-base leading-relaxed mt-12">
-              <p>
-                At Sri Bhashyakara, we believe luxury should be an intimate experience. We discard mass production in favor of absolute exclusivity, ensuring every piece is a unique masterpiece.
-              </p>
-              <p>
-                Our collections are curated for individuals who appreciate the delicate balance between bold, contemporary aesthetics and timeless elegance.
-              </p>
-            </div>
-            <div className="mt-16">
-              <Link href="/about" className="font-body text-xs uppercase tracking-[0.2em] text-mutedGold hover:text-deepBlue transition-colors flex items-center gap-2">
-                Discover Our Heritage <ArrowRight size={14} />
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* ====================================================
+          2. BRIDAL HIGHLIGHT BANNER
+      ==================================================== */}
+      <section className="relative w-full h-[75vh] bg-archBrown overflow-hidden">
+        {/* Full width background image of bride/jewelry */}
+        <div 
+          className="absolute inset-0 w-full h-full opacity-60 mix-blend-luminosity"
+          data-parallax="0.1"
+          style={{
+            backgroundImage: `url('${IMG.bridal2}')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center 30%",
+          }}
+        />
+        {/* Soft dark gradient on top */}
+        <div className="absolute inset-0 bg-gradient-to-t from-archBrown/90 via-archBrown/40 to-transparent" />
 
-      {/* ============ PEDESTAL SHOWCASE ============ */}
-      <section className="relative min-h-screen py-32 px-6 lg:px-12 overflow-hidden bg-pastelAccent">
-        <div className="absolute inset-0 z-0 opacity-40 mix-blend-multiply">
-          <PedestalScene />
-        </div>
-        <div className="relative z-10 max-w-[1500px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-          <Reveal className="lg:col-span-5">
-            <div className="font-body text-xs tracking-widest text-mutedGold uppercase mb-6 font-medium">Highlight</div>
-            <h2 className="font-heading text-5xl md:text-7xl text-deepBlue leading-[1.1]">
-              The <em className="italic text-mutedGold font-light">Aura</em> Collection.
-            </h2>
-            <p className="font-body text-deepBlue/70 mt-8 leading-relaxed max-w-md">
-              A striking exploration of form and light. The Aura collection features crisp, architectural lines studded with ethically sourced brilliant-cut diamonds.
-            </p>
-            <Link
-              href="/shop"
-              className="inline-flex items-center gap-3 mt-12 font-body text-[11px] tracking-[0.2em] uppercase text-deepBlue group hover:text-mutedGold transition-colors"
-            >
-              Shop The Collection <ChevronRight size={16} className="group-hover:translate-x-1 transition" />
-            </Link>
-          </Reveal>
-          <Reveal delay={200} className="lg:col-span-7 relative">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-sm shadow-2xl">
-              <img
-                src={MINIMAL_IMG}
-                alt="Minimalist Aura Collection Necklace"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-deepBlue/90 via-transparent to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="font-body text-xs text-mutedGold uppercase tracking-widest mb-2">Aura Pendant</div>
-                <p className="font-heading text-2xl text-white">Architectural elegance.</p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ============ CURATED GALLERY ============ */}
-      <section className="relative py-32 px-6 lg:px-12 bg-crispWhite">
-        <div className="max-w-[1500px] mx-auto">
-          <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
-            <div>
-              <div className="font-body text-xs tracking-widest text-mutedGold uppercase mb-4 font-medium">Curated</div>
-              <h2 className="font-heading text-4xl md:text-6xl text-deepBlue leading-tight">
-                New <em className="italic text-mutedGold font-light">Arrivals</em>.
+        <div className="absolute inset-0 flex items-center justify-center">
+          {/* Logo Frame overlay similar to Indriya */}
+          <div className="reveal scale-95 hover:scale-100 transition-transform duration-700 bg-navyBlue/90 backdrop-blur-md p-2 rounded-t-[40px] rounded-b-[40px] shadow-2xl border border-royalGold/30">
+            <div className="border border-royalGold/30 rounded-t-[32px] rounded-b-[32px] px-12 py-16 text-center">
+              <svg width="40" height="40" viewBox="0 0 36 36" fill="none" className="mx-auto mb-6">
+                <circle cx="18" cy="18" r="17" stroke="#C9A84C" strokeWidth="1" />
+                <path d="M18 6 L28 14 L24 30 L12 30 L8 14 Z" fill="none" stroke="#C9A84C" strokeWidth="1" />
+              </svg>
+              <h2 className="font-royal text-3xl md:text-5xl text-ivory tracking-widest uppercase mb-4">
+                Sri Bhashyakara
               </h2>
+              <div className="w-16 h-px bg-royalGold mx-auto mb-4" />
+              <p className="font-body text-xs text-royalGold tracking-[0.3em] uppercase">
+                Bridal Edition
+              </p>
             </div>
-            <Link href="/shop" className="font-body text-xs tracking-[0.2em] text-deepBlue uppercase hover:text-mutedGold transition-colors flex items-center gap-2">
-              View All <ArrowRight size={14} />
-            </Link>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { img: HERO_IMG, name: "Soleil Diamond Ring", price: "$4,200", tag: "New" },
-              { img: MODERN_IMG, name: "Lumiere Drop Earrings", price: "$3,800", tag: "Exclusive" },
-              { img: MINIMAL_IMG, name: "Crimson Velvet Cuff", price: "$8,500", tag: "Signature" }
-            ].map((p, i) => (
-              <Reveal key={i} delay={i * 100}>
-                <Link href={`/product/${i}`} className="block group">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-pastelAccent mb-6">
-                    <img src={p.img} alt={p.name} className="w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-105" />
-                    <div className="absolute top-4 left-4 bg-deepBlue text-white font-body text-[9px] uppercase tracking-widest px-3 py-1">
-                      {p.tag}
-                    </div>
-                  </div>
-                  <h3 className="font-heading text-2xl text-deepBlue mb-2">{p.name}</h3>
-                  <p className="font-body text-sm text-deepBlue/60">{p.price}</p>
-                </Link>
-              </Reveal>
-            ))}
           </div>
         </div>
       </section>
 
-      {/* ============ ATELIER ============ */}
-      <section className="relative py-32 px-6 lg:px-12 bg-deepBlue text-white">
-        <div className="max-w-[1500px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-16">
-          <Reveal className="md:col-span-5 md:sticky md:top-32 self-start">
-            <div className="font-body text-xs tracking-widest text-mutedGold uppercase mb-4 font-medium">The Atelier</div>
-            <h2 className="font-heading text-4xl md:text-6xl leading-[1.2]">
-              Uncompromising <em className="italic text-mutedGold font-light">Excellence</em>.
-            </h2>
-            <p className="font-body text-white/70 mt-8 leading-relaxed max-w-md font-light">
-              We operate an exclusive atelier model. By bypassing traditional retail chains, we maintain absolute control over quality, from the first sketch to the final polish.
+      {/* ====================================================
+          3. STORY SECTION
+      ==================================================== */}
+      <section className="py-32 px-6 bg-ivory">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="reveal font-royal text-4xl md:text-5xl text-royalNavy leading-tight mb-8">
+            Shimmering gold. For the stars above, <br/>
+            Hear them whisper tales of <em className="text-royalGold not-italic">softly love.</em>
+          </h2>
+          <div className="reveal delay-100 w-px h-16 bg-royalGold/50 mx-auto" />
+          <div className="reveal delay-200 mt-4 text-royalGold text-xl">✦</div>
+        </div>
+      </section>
+
+      {/* ====================================================
+          4. GAHARA BANYAN (ARCH) SHOWCASE
+      ==================================================== */}
+      <section className="py-20 px-6 bg-ivory relative overflow-hidden">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          
+          <div className="reveal-left order-2 md:order-1 max-w-md">
+            <h3 className="font-royal text-3xl md:text-4xl mb-4 text-royalNavy">
+              The Heritage Collection
+            </h3>
+            <div className="w-12 h-px bg-royalGold mb-6" />
+            <p className="font-body text-sm text-royalNavy/70 leading-relaxed mb-8">
+              Every creation begins with a sacred gesture — the master&apos;s hand meets paper. 
+              Twenty-eight generations of motifs guide each line. Under candlelight, one karigar seats each stone by hand. No two pieces are identical.
             </p>
-          </Reveal>
-          <div className="md:col-span-6 md:col-start-7 space-y-16">
-            {ATELIER_FEATURES.map((s, i) => (
-              <Reveal key={s.num} delay={i * 100}>
-                <div className="grid grid-cols-12 gap-6 items-start border-b border-mutedGold/20 pb-12">
-                  <span className="col-span-2 font-display text-2xl text-mutedGold font-light">{s.num}</span>
-                  <div className="col-span-10">
-                    <h3 className="font-heading text-2xl text-white mb-3">{s.title}</h3>
-                    <p className="font-body text-white/60 leading-relaxed font-light">{s.body}</p>
+            <Link href="/shop" className="btn-royal-solid">
+              Explore Collection
+            </Link>
+          </div>
+
+          <div className="reveal-right order-1 md:order-2 flex justify-center">
+            {/* The Arch Container */}
+            <div className="relative w-full max-w-[350px] aspect-[1/2] rounded-t-full bg-archBrown p-4 shadow-2xl flex flex-col items-center justify-center border border-royalGold/10">
+               {/* Inner gold border */}
+               <div className="absolute inset-3 border border-royalGold/20 rounded-t-full pointer-events-none" />
+               <div className="text-center z-10 mb-8 mt-12">
+                 <div className="font-royal text-royalGold text-sm tracking-widest uppercase mb-2">Sri Bhashyakara</div>
+                 <div className="font-sub italic text-ivory/60 text-xs">Sacred Geometry</div>
+               </div>
+               
+               <div className="w-48 h-48 rounded-full overflow-hidden border-2 border-royalGold/30 shadow-[0_0_30px_rgba(201,168,76,0.3)] z-10">
+                 <img src={IMG.lotus2} alt="Jewelry piece" className="w-full h-full object-cover" />
+               </div>
+               <div className="mt-8 text-royalGold text-sm">✦</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ====================================================
+          5. FULL WIDTH PARALLAX IMAGE
+      ==================================================== */}
+      <section className="relative w-full h-[60vh] overflow-hidden my-16">
+         <div 
+           className="absolute inset-0 w-full h-full"
+           data-parallax="0.15"
+           style={{
+             backgroundImage: `url('${IMG.hero}')`,
+             backgroundSize: "cover",
+             backgroundPosition: "center 40%",
+           }}
+         />
+      </section>
+
+
+      {/* ====================================================
+          6. WEAR ME WITH LOVE GRID
+      ==================================================== */}
+      <section className="py-24 px-6 bg-ivory">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="reveal mb-12">
+            <h2 className="font-royal text-4xl md:text-5xl text-royalNavy">
+              Wear me with <em className="text-royalGold not-italic">Love</em>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            {/* Left Grid of Categories */}
+            <div className="lg:col-span-7 grid grid-cols-2 gap-4">
+              <Link href="/shop" className="reveal delay-100 col-span-2 group">
+                <div className="bg-blushLight rounded-lg p-8 h-full flex flex-col justify-between hover:shadow-xl transition-shadow border border-blushPink">
+                  <span className="font-body text-sm font-semibold tracking-wider text-royalNavy/70 uppercase mb-8 group-hover:text-royalNavy">Every Day</span>
+                  <div className="flex justify-end">
+                    <img src={IMG.earrings} alt="Every day" className="w-24 h-24 object-cover rounded-full shadow-lg group-hover:scale-105 transition-transform duration-500" />
                   </div>
                 </div>
-              </Reveal>
-            ))}
+              </Link>
+              
+              <Link href="/shop" className="reveal delay-200 group">
+                <div className="bg-blushPink/50 rounded-lg p-6 h-full flex flex-col justify-between hover:shadow-xl transition-shadow border border-blushPink">
+                  <span className="font-body text-xs font-semibold tracking-wider text-royalNavy/70 uppercase mb-4 group-hover:text-royalNavy">Workwear</span>
+                  <img src={IMG.ring} alt="Workwear" className="w-20 h-20 object-cover mx-auto rounded-full group-hover:scale-105 transition-transform duration-500" />
+                </div>
+              </Link>
+
+              <Link href="/shop" className="reveal delay-300 group">
+                <div className="bg-blushLight rounded-lg p-6 h-full flex flex-col justify-between hover:shadow-xl transition-shadow border border-blushPink">
+                  <span className="font-body text-xs font-semibold tracking-wider text-royalNavy/70 uppercase mb-4 group-hover:text-royalNavy">Partywear</span>
+                  <img src={IMG.pendant} alt="Partywear" className="w-20 h-20 object-cover mx-auto rounded-full group-hover:scale-105 transition-transform duration-500" />
+                </div>
+              </Link>
+              
+              <Link href="/shop" className="reveal delay-400 group">
+                <div className="bg-[#F0E6D8] rounded-lg p-6 h-full flex flex-col justify-between hover:shadow-xl transition-shadow border border-[#E0D6C8]">
+                  <span className="font-body text-xs font-semibold tracking-wider text-royalNavy/70 uppercase mb-4 group-hover:text-royalNavy">Bridal</span>
+                </div>
+              </Link>
+
+              <Link href="/shop" className="reveal delay-500 group">
+                <div className="bg-blushPink/80 rounded-lg p-6 h-full flex flex-col justify-between hover:shadow-xl transition-shadow border border-blushPink">
+                  <span className="font-body text-xs font-semibold tracking-wider text-royalNavy/70 uppercase mb-4 group-hover:text-royalNavy">Gifting</span>
+                </div>
+              </Link>
+            </div>
+
+            {/* Right Large Image */}
+            <div className="lg:col-span-5 reveal delay-600">
+              <div className="w-full h-full min-h-[400px] rounded-lg overflow-hidden relative">
+                 <img src={IMG.bridal} alt="Wear me with love" className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ============ CONCIERGE ============ */}
-      <section className="relative py-32 px-6 lg:px-12 bg-pastelAccent">
-        <div className="max-w-[1300px] mx-auto text-center">
-          <Reveal>
-            <div className="font-body text-xs tracking-widest text-mutedGold uppercase mb-6 font-medium">Private Appointments</div>
-            <h2 className="font-heading text-4xl md:text-6xl text-deepBlue leading-tight max-w-2xl mx-auto">
-              Experience our collections <em className="italic text-mutedGold font-light">in person</em>.
-            </h2>
-            <p className="font-body text-deepBlue/70 mt-8 max-w-xl mx-auto leading-relaxed">
-              Book a private consultation at our flagship boutique. Discover our latest creations with the guidance of a dedicated jewellery specialist.
-            </p>
-            <div className="flex flex-wrap justify-center gap-5 mt-12">
-              <Link href="/contact" className="btn-gold">
-                Book an Appointment
+      {/* ====================================================
+          7. AIRA COLLECTION (DARK NAVY ARCH BG)
+      ==================================================== */}
+      <section className="py-24 px-6 bg-ivory">
+        <div className="max-w-[1400px] mx-auto bg-navyBlue rounded-[40px] md:rounded-[80px] p-8 md:p-16 lg:p-24 text-ivory relative overflow-hidden border border-royalGold/20">
+          
+          <div className="absolute top-0 right-0 w-[50%] h-[100%] bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-royalGold/10 via-transparent to-transparent pointer-events-none" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+            {/* Left text */}
+            <div className="reveal">
+              <h2 className="font-royal text-4xl md:text-5xl text-ivory mb-6">
+                Aira
+              </h2>
+              <p className="font-body text-sm text-ivory/70 leading-relaxed mb-8 max-w-md">
+                Masterfully crafted to embody grace. The Aira collection features delicate gold intertwining with precious stones, creating a symphony of light perfect for any grand occasion.
+              </p>
+              <Link href="/shop" className="btn-royal-solid bg-royalGold text-navyBlue hover:bg-royalGoldLight">
+                Explore Collection
               </Link>
             </div>
-          </Reveal>
+
+            {/* Right Arch Image */}
+            <div className="reveal-scale flex justify-center lg:justify-end">
+              <div className="w-full max-w-[300px] aspect-[3/4] bg-archBrown rounded-t-full p-3 border border-royalGold/20 shadow-2xl relative">
+                <div className="absolute inset-0 border border-royalGold/10 rounded-t-full m-2 pointer-events-none" />
+                <img src={IMG.blue} alt="Aira Collection" className="w-full h-full object-cover rounded-t-full rounded-b-xl" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Grid of small items */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 relative z-10">
+            {[IMG.earrings, IMG.ruby, IMG.emerald, IMG.ring].map((img, i) => (
+              <div key={i} className="reveal bg-ivory p-4 md:p-6 rounded-lg hover:shadow-xl transition-shadow group flex items-center justify-center aspect-square" style={{ transitionDelay: `${i * 0.1}s` }}>
+                <img src={img} alt="Aira piece" className="w-full h-full object-cover rounded-md group-hover:scale-110 transition-transform duration-500 shadow-sm" />
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
-    </main>
+    </div>
   );
 }
